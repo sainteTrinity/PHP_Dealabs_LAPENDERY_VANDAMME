@@ -1,4 +1,9 @@
-Docker
+Projet
+--------------
+Projet Symfony dans le but de créer un site front / back imitant le fonctionnement de dealabs.
+
+
+Installation
 --------------
 *  Copier l'ensemble des fichiers relatifs à Docker à la racine de votre projet Symfony
 
