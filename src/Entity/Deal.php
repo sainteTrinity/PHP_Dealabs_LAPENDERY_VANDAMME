@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DealRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DealRepository::class)]
@@ -36,6 +38,18 @@ class Deal
 
     #[ORM\Column(length: 255)]
     private ?string $link = null;
+
+    #[ORM\OneToMany(mappedBy: 'deal', targetEntity: Comment::class)]
+    private Collection $comments;
+
+    #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'deals')]
+    private Collection $customGroups;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+        $this->customGroups = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -134,6 +148,60 @@ class Deal
     public function setLink(string $link): self
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setDeal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getDeal() === $this) {
+                $comment->setDeal(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Group>
+     */
+    public function getCustomGroups(): Collection
+    {
+        return $this->customGroups;
+    }
+
+    public function addCustomGroup(Group $customGroup): self
+    {
+        if (!$this->customGroups->contains($customGroup)) {
+            $this->customGroups->add($customGroup);
+        }
+
+        return $this;
+    }
+
+    public function removeCustomGroup(Group $customGroup): self
+    {
+        $this->customGroups->removeElement($customGroup);
 
         return $this;
     }
