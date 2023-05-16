@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Deal{% endblock %}
+
+{% block body %}
+    <h1>Deal</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ deal.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ deal.Title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ deal.Description }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ deal.Note }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ deal.Price }}</td>
+            </tr>
+            <tr>
+                <th>NormalPrice</th>
+                <td>{{ deal.NormalPrice }}</td>
+            </tr>
+            <tr>
+                <th>Shipping</th>
+                <td>{{ deal.shipping }}</td>
+            </tr>
+            <tr>
+                <th>PromoCode</th>
+                <td>{{ deal.promoCode }}</td>
+            </tr>
+            <tr>
+                <th>Link</th>
+                <td>{{ deal.link }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('deal_index') }}">back to list</a>
+
+    <a href="{{ path('deal_edit', {'id': deal.id}) }}">edit</a>
+
+    {{ include('deal/_delete_form.html.twig') }}
+{% endblock %}
