@@ -15,7 +15,11 @@ security:
             security: false
         main:
             lazy: true
-            provider: users_in_memory
+            provider: app_user_provider
+            custom_authenticator: App\Security\AppAuthenticator
+            logout:
+                path: app_logout
+                target: deal_index
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
