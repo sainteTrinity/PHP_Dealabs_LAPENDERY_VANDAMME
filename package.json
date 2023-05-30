@@ -1,0 +1,16 @@
+{
+  "name": "PHP_Dealabs_LAPENDERY_VANDAMME",
+  "version": "1.0.0",
+  "dependencies": {
+    "@symfony/stimulus-bridge": "^3.2.2",
+    "@symfony/webpack-encore": "^4.3.0",
+    "core-js": "^3.30.2",
+    "stimulus": "^3.2.1"
+  },
+  "scripts": {
+    "build": "encore production"
+  },
+  "devDependencies": {
+    "webpack-notifier": "^1.15.0"
+  }
+}
