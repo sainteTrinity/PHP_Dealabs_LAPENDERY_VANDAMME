@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PromoCode index{% endblock %}
+
+{% block body %}
+    <h1>PromoCode index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Link</th>
+                <th>Code</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for promo_code in promo_codes %}
+            <tr>
+                <td>{{ promo_code.id }}</td>
+                <td>{{ promo_code.link }}</td>
+                <td>{{ promo_code.code }}</td>
+                <td>{{ promo_code.Title }}</td>
+                <td>{{ promo_code.Description }}</td>
+                <td>
+                    <a href="{{ path('promo_code_show', {'id': promo_code.id}) }}">show</a>
+                    <a href="{{ path('promo_code_edit', {'id': promo_code.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('promo_code_new') }}">Create new</a>
+{% endblock %}

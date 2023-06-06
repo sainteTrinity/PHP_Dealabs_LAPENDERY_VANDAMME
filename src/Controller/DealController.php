@@ -34,7 +34,7 @@ class DealController extends AbstractController
             return $this->redirectToRoute('deal_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('deal/new.html.twig', [
+        return $this->render('deal/new.html.twig', [
             'deal' => $deal,
             'form' => $form,
         ]);
@@ -60,7 +60,7 @@ class DealController extends AbstractController
             return $this->redirectToRoute('deal_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('deal/edit.html.twig', [
+        return $this->render('deal/edit.html.twig', [
             'deal' => $deal,
             'form' => $form,
         ]);
@@ -75,4 +75,5 @@ class DealController extends AbstractController
 
         return $this->redirectToRoute('deal_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }
