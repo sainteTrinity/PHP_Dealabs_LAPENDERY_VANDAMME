@@ -4,54 +4,19 @@
 
 {% block body %}
     <div>
+        <div class="row">
         {% for deal in deals %}
-            <div class="card">
-                <div class="card-body">
-                    <h3>{{ deal.title }}</h3>
+            <div class="col-md-3">
+                <div class="card m-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ deal.title }}</h5>
+                        <p class="card-text">{{ deal.description }}</p>
+                        <p class="card-text">Prix : {{ deal.price }}€</p>
+                        <a href="{{ path('deal_edit', {'id': deal.id}) }}) }}" class="btn btn-primary">Voir le deal</a>
+                    </div>
                 </div>
             </div>
         {% endfor %}
+        </div>
     </div>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Note</th>
-                <th>Price</th>
-                <th>NormalPrice</th>
-                <th>Shipping</th>
-                <th>PromoCode</th>
-                <th>Link</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for deal in deals %}
-            <tr>
-                <td>{{ deal.id }}</td>
-                <td>{{ deal.Title }}</td>
-                <td>{{ deal.Description }}</td>
-                <td>{{ deal.Note }}</td>
-                <td>{{ deal.Price }}</td>
-                <td>{{ deal.NormalPrice }}</td>
-                <td>{{ deal.shipping }}</td>
-                <td>{{ deal.promoCode }}</td>
-                <td>{{ deal.link }}</td>
-                <td>
-                    <a href="{{ path('deal_show', {'id': deal.id}) }}">show</a>
-                    <a href="{{ path('deal_edit', {'id': deal.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('deal_new') }}">Create new</a>
 {% endblock %}

@@ -48,7 +48,7 @@ class Deal
     #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'deals')]
     private Collection $customGroups;
 
-    #[Vich\UploadableField(mapping: 'deals', fileNameProperty: 'imageName')]
+    #[Vich\UploadableField(mapping: 'deal_image_file', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
     #[ORM\Column(nullable: true)]

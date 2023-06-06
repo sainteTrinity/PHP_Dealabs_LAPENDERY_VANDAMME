@@ -23,7 +23,9 @@ class DealType extends AbstractType
             ->add('shipping')
             ->add('promoCode')
             ->add('link')
-            ->add('imageFile', VichImageType::class)
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+            ])
         ;
     }
 
