@@ -18,7 +18,7 @@
 <body>
 
 <!-- Top Menu -->
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark px-4">
     <a href="{{ path('deal_index') }}"
        class="nav-logo nav-hideSearch flex flex--shrink-0 boxAlign-as--all-c text--h space--mr-2 router-link-active"
        rel="home" style="background: url('/assets/images/mysvg.svg');" data-t-click="" data-t="homeLink">
@@ -56,11 +56,23 @@
                            aria-label="Search">
                 </form>
             </li>
+            {% if app.user %}
+                <li class="nav-item mr-3 dropdown text-center">
+                    <a class="nav-link btn rounded-pill btn-secondary" data-toggle="dropdown" id="profileDropdown"><i class="fa-solid fa-user fa-lg mx-1"></i></a>
+                    <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item" href="#">Mes Deals</a>
+                        <a class="dropdown-item" href="#">Paramètres</a>
+                        <a class="dropdown-item" href="{{ path("app_logout") }}">Deconnexion</a>
+                    </div>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#createmodel">Connexion</a>
+                    {{ include('security/login_modal.html.twig') }}
+                </li>
+            {% endif %}
             <li class="nav-item">
-                <a class="nav-link" href="#">Connexion</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link btn btn-primary rounded-pill text-white mr-2 post-btn" href="{{ path('deal_new') }}">Post</a>
+                <a class="nav-link btn btn-primary rounded-pill text-white mr-2 post-btn" href="{{ path('deal_new') }}"><i class="fa-solid fa-plus mr-2"></i>Poster</a>
             </li>
         </ul>
     </div>

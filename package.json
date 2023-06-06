@@ -11,6 +11,7 @@
     "build": "encore production"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.0",
     "webpack-notifier": "^1.15.0"
   }
 }

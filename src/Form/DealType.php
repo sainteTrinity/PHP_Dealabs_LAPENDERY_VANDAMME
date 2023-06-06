@@ -18,10 +18,10 @@ class DealType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Title', TextType::class)
-            ->add('Description', TextareaType::class)
-            ->add('Price', IntegerType::class)
-            ->add('NormalPrice', IntegerType::class)
+            ->add('title', TextType::class)
+            ->add('description', TextareaType::class)
+            ->add('price', IntegerType::class)
+            ->add('normalPrice', IntegerType::class)
             ->add('shipping', TextType::class)
             ->add('promoCode', TextType::class)
             ->add('link', TextType::class)

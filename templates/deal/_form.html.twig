@@ -1,23 +1,19 @@
 {{ form_start(form) }}
 <div class="form-group">
-    {{ form_label(form.Title, 'Title') }}
-    {{ form_widget(form.Title, {'attr': {'class': 'form-control', 'id': 'title', 'placeholder': 'Enter title'}}) }}
+    {{ form_label(form.title, 'Title') }}
+    {{ form_widget(form.title, {'attr': {'class': 'form-control', 'id': 'title', 'placeholder': 'Enter title'}}) }}
 </div>
 <div class="form-group">
-    {{ form_label(form.Description, 'Description') }}
-    {{ form_widget(form.Description, {'attr': {'class': 'form-control', 'id': 'description', 'placeholder': 'Enter description'}}) }}
+    {{ form_label(form.description, 'Description') }}
+    {{ form_widget(form.description, {'attr': {'class': 'form-control', 'id': 'description', 'placeholder': 'Enter description'}}) }}
 </div>
 <div class="form-group">
-    {{ form_label(form.Note, 'Note') }}
-    {{ form_widget(form.Note, {'attr': {'class': 'form-control', 'id': 'note', 'placeholder': 'Enter note'}}) }}
+    {{ form_label(form.price, 'Price') }}
+    {{ form_widget(form.price, {'attr': {'class': 'form-control', 'id': 'price', 'placeholder': 'Enter price'}}) }}
 </div>
 <div class="form-group">
-    {{ form_label(form.Price, 'Price') }}
-    {{ form_widget(form.Price, {'attr': {'class': 'form-control', 'id': 'price', 'placeholder': 'Enter price'}}) }}
-</div>
-<div class="form-group">
-    {{ form_label(form.NormalPrice, 'Normal Price') }}
-    {{ form_widget(form.NormalPrice, {'attr': {'class': 'form-control', 'id': 'normalPrice', 'placeholder': 'Enter normal price'}}) }}
+    {{ form_label(form.normalPrice, 'Normal Price') }}
+    {{ form_widget(form.normalPrice, {'attr': {'class': 'form-control', 'id': 'normalPrice', 'placeholder': 'Enter normal price'}}) }}
 </div>
 <div class="form-group">
     {{ form_label(form.shipping, 'Shipping') }}
