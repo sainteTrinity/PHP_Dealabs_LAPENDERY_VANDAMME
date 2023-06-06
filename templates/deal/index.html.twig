@@ -6,17 +6,18 @@
     <div>
         <div class="row">
         {% for deal in deals %}
-            <div class="col-md-3">
-                <div class="card m-4">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="{{ deal.image }}" class="card-img-top" alt="{{ deal.title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ deal.title }}</h5>
                         <p class="card-text">{{ deal.description }}</p>
                         <p class="card-text">Prix : {{ deal.price }}€</p>
-                        <a href="{{ path('deal_edit', {'id': deal.id}) }}) }}" class="btn btn-primary">Voir le deal</a>
+                        <a href="{{ deal.url }}" class="btn btn-primary">Voir le deal</a>
                     </div>
                 </div>
             </div>
         {% endfor %}
-        </div>
+
     </div>
 {% endblock %}

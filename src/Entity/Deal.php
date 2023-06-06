@@ -19,19 +19,19 @@ class Deal
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Title = null;
+    private ?string $title = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Description = null;
+    private ?string $description = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Note = null;
+    private int $note = 0;
 
     #[ORM\Column(nullable: true)]
-    private ?float $Price = null;
+    private ?float $price = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $NormalPrice = null;
+    private ?float $normalPrice = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $shipping = null;
@@ -70,60 +70,60 @@ class Deal
 
     public function getTitle(): ?string
     {
-        return $this->Title;
+        return $this->title;
     }
 
-    public function setTitle(string $Title): self
+    public function setTitle(string $title): self
     {
-        $this->Title = $Title;
+        $this->title = $title;
 
         return $this;
     }
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
-    public function setDescription(string $Description): self
+    public function setDescription(string $description): self
     {
-        $this->Description = $Description;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getNote(): ?string
+    public function getNote(): int
     {
-        return $this->Note;
+        return $this->note;
     }
 
-    public function setNote(string $Note): self
+    public function setNote(int $note): self
     {
-        $this->Note = $Note;
+        $this->note = $note;
 
         return $this;
     }
 
     public function getPrice(): ?float
     {
-        return $this->Price;
+        return $this->price;
     }
 
-    public function setPrice(?float $Price): self
+    public function setPrice(?float $price): self
     {
-        $this->Price = $Price;
+        $this->price = $price;
 
         return $this;
     }
 
     public function getNormalPrice(): ?float
     {
-        return $this->NormalPrice;
+        return $this->normalPrice;
     }
 
-    public function setNormalPrice(?float $NormalPrice): self
+    public function setNormalPrice(?float $normalPrice): self
     {
-        $this->NormalPrice = $NormalPrice;
+        $this->normalPrice = $normalPrice;
 
         return $this;
     }
