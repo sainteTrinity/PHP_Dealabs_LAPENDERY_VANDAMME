@@ -1,0 +1,78 @@
+.cls-button {
+    font-weight: bolder;
+}
+
+/* Custom styles go here */
+.navbar-brand img {
+    max-height: 40px;
+}
+
+.navbar-nav .nav-link {
+    font-weight: bold;
+    color: #fff;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #F6D300;
+}
+
+.dropdown-menu {
+    background-color: #fff;
+    border: none;
+}
+
+.dropdown-item {
+    color: #000;
+    font-weight: bold;
+}
+
+.dropdown-item:hover {
+    background-color: #F6D300;
+    color: #fff;
+}
+
+.rounded-pill {
+    border-radius: 50px;
+}
+
+.search-input {
+    background-color: #F2F2F2;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    width: 250px;
+    transition: all 0.3s;
+}
+
+.search-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.post-btn {
+    background-color: #F6D300;
+    border-color: #F6D300;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.post-btn:hover {
+    background-color: #E6C100;
+    border-color: #E6C100;
+}
+
+.post-btn:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Center the buttons vertically */
+.navbar-nav .nav-item {
+    display: flex;
+    align-items: center;
+}
+
+/* Add space at the right and left of the navbar */
+.navbar {
+    padding-left: 20px;
+    padding-right: 20px;
+}
