@@ -3,52 +3,27 @@
 {% block title %}Deal{% endblock %}
 
 {% block body %}
-    <h1>Deal</h1>
+    <div class="container">
+        <h1>Deal</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ deal.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ deal.Title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ deal.Description }}</td>
-            </tr>
-            <tr>
-                <th>Note</th>
-                <td>{{ deal.Note }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ deal.Price }}</td>
-            </tr>
-            <tr>
-                <th>NormalPrice</th>
-                <td>{{ deal.NormalPrice }}</td>
-            </tr>
-            <tr>
-                <th>Shipping</th>
-                <td>{{ deal.shipping }}</td>
-            </tr>
-            <tr>
-                <th>PromoCode</th>
-                <td>{{ deal.promoCode }}</td>
-            </tr>
-            <tr>
-                <th>Link</th>
-                <td>{{ deal.link }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="card animate__animated animate__fadeInUp">
+            <div class="card-body">
+                <h3 class="card-title">{{ deal.title }}</h3>
+                <p class="card-text">Temperature: {{ deal.note }}</p>
+                <p class="card-text">Price: {{ deal.price }}</p>
+                <p class="card-text">Description: {{ deal.description }}</p>
+                <p class="card-text">Link: <a href="{{ deal.link }}">{{ deal.link }}</a></p>
+            </div>
+        </div>
 
-    <a href="{{ path('deal_index') }}">back to list</a>
+        <div class="text-center mt-3">
+            <a href="{{ path('deal_index') }}" class="btn btn-secondary animate__animated animate__fadeInUp">Back to list</a>
+        </div>
 
-    <a href="{{ path('deal_edit', {'id': deal.id}) }}">edit</a>
+        <div class="text-center mt-3">
+            <a href="{{ path('deal_edit', {'id': deal.id}) }}" class="btn btn-primary animate__animated animate__fadeInUp">Edit</a>
+        </div>
 
-    {{ include('deal/_delete_form.html.twig') }}
+        {{ include('deal/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

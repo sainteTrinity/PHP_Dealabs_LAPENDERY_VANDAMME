@@ -19,50 +19,55 @@
 
 <!-- Top Menu -->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a href="/" class="nav-logo nav-hideSearch flex flex--shrink-0 boxAlign-as--all-c text--h space--mr-2 router-link-active" rel="home" style="background: url('/assets/images/mysvg.svg');" data-t-click="" data-t="homeLink">
+    <a href="{{ path('deal_index') }}"
+       class="nav-logo nav-hideSearch flex flex--shrink-0 boxAlign-as--all-c text--h space--mr-2 router-link-active"
+       rel="home" style="background: url('/assets/images/mysvg.svg');" data-t-click="" data-t="homeLink">
         <img src="https://www.dealabs.com/assets/img/logo/default-light_04b6a.svg">
     </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('deal_index') }}">Bons plans</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('promo_code_index') }}">Codes Promo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Gratuit</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Menu
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Category 1</a>
-                        <a class="dropdown-item" href="#">Category 2</a>
-                        <a class="dropdown-item" href="#">Category 3</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2 rounded-pill search-input" type="search" placeholder="Search" aria-label="Search">
-                    </form>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Connexion</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-primary rounded-pill text-white mr-2 post-btn" href="#">Post</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('deal_index') }}">Bons plans</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('promo_code_index') }}">Codes Promo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Gratuit</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Menu
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Category 1</a>
+                    <a class="dropdown-item" href="#">Category 2</a>
+                    <a class="dropdown-item" href="#">Category 3</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2 rounded-pill search-input" type="search" placeholder="Search"
+                           aria-label="Search">
+                </form>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Connexion</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-primary rounded-pill text-white mr-2 post-btn" href="{{ path('deal_new') }}">Post</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 
-    {% block body %}{% endblock %}
+{% block body %}{% endblock %}
 
 <!-- Include Bootstrap and jQuery scripts -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

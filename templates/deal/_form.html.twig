@@ -1,4 +1,35 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="form-group">
+    {{ form_label(form.Title, 'Title') }}
+    {{ form_widget(form.Title, {'attr': {'class': 'form-control', 'id': 'title', 'placeholder': 'Enter title'}}) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.Description, 'Description') }}
+    {{ form_widget(form.Description, {'attr': {'class': 'form-control', 'id': 'description', 'placeholder': 'Enter description'}}) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.Note, 'Note') }}
+    {{ form_widget(form.Note, {'attr': {'class': 'form-control', 'id': 'note', 'placeholder': 'Enter note'}}) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.Price, 'Price') }}
+    {{ form_widget(form.Price, {'attr': {'class': 'form-control', 'id': 'price', 'placeholder': 'Enter price'}}) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.NormalPrice, 'Normal Price') }}
+    {{ form_widget(form.NormalPrice, {'attr': {'class': 'form-control', 'id': 'normalPrice', 'placeholder': 'Enter normal price'}}) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.shipping, 'Shipping') }}
+    {{ form_widget(form.shipping, {'attr': {'class': 'form-control', 'id': 'shipping', 'placeholder': 'Enter shipping'}}) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.promoCode, 'Promo Code') }}
+    {{ form_widget(form.promoCode, {'attr': {'class': 'form-control', 'id': 'promoCode', 'placeholder': 'Enter promo code'}}) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.link, 'Link') }}
+    {{ form_widget(form.link, {'attr': {'class': 'form-control', 'id': 'link', 'placeholder': 'Enter link'}}) }}
+</div>
+<button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

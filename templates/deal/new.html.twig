@@ -2,10 +2,41 @@
 
 {% block title %}New Deal{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        .card {
+            animation: fadeInUp 0.5s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-    <h1>Create new Deal</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="mb-4 animate__animated animate__fadeInUp">Create new Deal</h1>
 
-    {{ include('deal/_form.html.twig') }}
+                <div class="card animate__animated animate__fadeInUp">
+                    <div class="card-body">
+                        {{ include('deal/_form.html.twig') }}
+                    </div>
+                </div>
 
-    <a href="{{ path('deal_index') }}">back to list</a>
+                <a href="{{ path('deal_index') }}" class="btn btn-secondary mt-3 animate__animated animate__fadeInUp">Back to list</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
