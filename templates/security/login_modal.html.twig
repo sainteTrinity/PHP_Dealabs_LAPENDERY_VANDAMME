@@ -1,8 +1,23 @@
-<div class="modal fade" id="createmodel" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="m-4">
-                {{ include('security/login_form.html.twig') }}
+            <div class="modal-header  bg-light">
+                <h3> Bienvenue sur Dealabs !</h3>
+            </div>
+            <div class="modal-body">
+                <div class="m-4 row">
+                    <div class="col-md-6 text-center align-bottom">
+                        <h3 class="mx-3">Rejoignez la communauté !</h3>
+                        <p class="mx-1">Sur Dealabs, vous trouverez les meilleurs deals de vos marques et marchands préférés, partagés par notre communauté</p>
+                        <a class="btn-block btn btn-secondary rounded-pill" href="{{ path("app_register") }}">
+                            <div class="mx-2">Créer un compte</div>
+                        </a>
+                    </div>
+                    <div class="vr"></div>
+                    <div class="col-md-6">
+                        {{ include('security/login_form.html.twig') }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

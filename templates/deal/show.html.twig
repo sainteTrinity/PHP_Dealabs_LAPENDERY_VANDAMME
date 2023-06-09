@@ -3,27 +3,63 @@
 {% block title %}Deal{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1>Deal</h1>
-
+    <div class="container mt-2">
         <div class="card animate__animated animate__fadeInUp">
-            <div class="card-body">
-                <h3 class="card-title">{{ deal.title }}</h3>
-                <p class="card-text">Temperature: {{ deal.note }}</p>
-                <p class="card-text">Price: {{ deal.price }}</p>
-                <p class="card-text">Description: {{ deal.description }}</p>
-                <p class="card-text">Link: <a href="{{ deal.link }}">{{ deal.link }}</a></p>
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ vich_uploader_asset(deal, 'imageFile') }}" class="card-img" alt="{{ deal.imageName }}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <button class="btn btn-sm btn-primary mr-2" style="font-weight: bold">-</button>
+                            {% set noteColor = deal.note > 50 ? 'text-danger' : (deal.note > 20 ? 'text-warning' : (deal.note < 0 ? 'text-info' : (deal.note < 25 ? 'text-primary' : ''))) %}
+                            <h5 class="card-text {{ noteColor }}" style="font-weight: bold">{{ deal.note }}</h5>
+                            <button class="btn btn-sm btn-danger ml-2" style="font-weight: bold">+</button>
+                        </div>
+                        <h3 class="card-title mt-3 font-weight-bold">{{ deal.title }}</h3>
+                        <p class="card-text text-danger font-weight-bold">{{ deal.price }}€</p>
+                        <p class="card-text text-muted">Regular Price: {{ deal.normalPrice }}€</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <a href="{{ deal.link }}" class="btn btn-primary btn-lg rounded-pill mr-3">Voir le Deal<i class="fa-solid fa-arrow-up-right-from-square ml-2"></i></a>
+                            <button class="btn btn-outline-secondary btn-lg border-dashed">Copy Promo Code</button>
+                        </div>
+                        <p class="card-text mt-3">{{ deal.description }}</p>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="text-center mt-3">
-            <a href="{{ path('deal_index') }}" class="btn btn-secondary animate__animated animate__fadeInUp">Back to list</a>
+        <div class="card animate__animated animate__fadeInUp mt-2 p-3">
+            {% if app.user %}
+                {{ form_start(commentForm) }}
+                    <div class="row pl-2">
+                        <i class="fa-solid fa-user fa-lg mx-2"></i>
+                        <h5>{{ app.user.username }}</h5>
+                    </div>
+                    <div class="form-group">
+                       {{ form_widget(commentForm.Description) }}
+                    </div>
+                    <button type="submit" class="btn btn-secondary rounded-pill align-left"> Envoyer </button>
+                {{ form_end(commentForm) }}
+            {% else %}
+                <span class="text-center info"> Veuillez vous connecter pour écrire un commentaire !</span>
+            {% endif %}
         </div>
 
-        <div class="text-center mt-3">
-            <a href="{{ path('deal_edit', {'id': deal.id}) }}" class="btn btn-primary animate__animated animate__fadeInUp">Edit</a>
-        </div>
+        {% for comment in deal.comments %}
+            <div class="card animate__animated animate__fadeInUp mt-2 p-3">
+                <div class="container">
+                    <div class="row mt-2">
+                        <i class="fa-solid fa-user fa-lg mx-2"></i>
+                        <h5>{{ comment.User.username }}</h5>
+                    </div>
+                    <div class="row">
+                        <span class="ml-3">{{ comment.Description }}</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
 
-        {{ include('deal/_delete_form.html.twig') }}
+
     </div>
 {% endblock %}

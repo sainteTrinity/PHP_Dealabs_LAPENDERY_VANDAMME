@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,10 +41,17 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user): Response
+    #[Route('/profile', name: 'app_user_profile', methods: ['GET'])]
+    public function show(Security $security): Response
     {
-        return $this->render('user/show.html.twig', [
+        $user = $security->getUser();
+
+        if(!$user) {
+            $this->addFlash('warning', 'Il faut être connecté pour pouvoir accéder à son profil.');
+            $this->redirectToRoute("/");
+        }
+
+        return $this->render('user/profile.html.twig', [
             'user' => $user,
         ]);
     }
