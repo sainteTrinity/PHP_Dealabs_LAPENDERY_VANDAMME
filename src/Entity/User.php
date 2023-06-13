@@ -37,13 +37,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Deal::class)]
     private Collection $deals;
 
-    #[ORM\ManyToOne(inversedBy: 'usersLikes')]
-    private ?Deal $likedDeals = null;
+    #[ORM\ManyToMany(targetEntity: Deal::class, inversedBy: 'likedUsers')]
+    private Collection $likedDeals;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->deals = new ArrayCollection();
+        $this->likedDeals = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,14 +174,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLikedDeals(): ?Deal
+    /**
+     * @return Collection<int, Deal>
+     */
+    public function getLikedDeals(): Collection
     {
         return $this->likedDeals;
     }
 
-    public function setLikedDeals(?Deal $likedDeals): self
+    public function addLikedDeal(Deal $likedDeal): self
     {
-        $this->likedDeals = $likedDeals;
+        if (!$this->likedDeals->contains($likedDeal)) {
+            $this->likedDeals->add($likedDeal);
+        }
+
+        return $this;
+    }
+
+    public function removeLikedDeal(Deal $likedDeal): self
+    {
+        $this->likedDeals->removeElement($likedDeal);
 
         return $this;
     }

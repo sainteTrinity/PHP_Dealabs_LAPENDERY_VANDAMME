@@ -60,14 +60,14 @@ class Deal
     #[ORM\ManyToOne(inversedBy: 'deals')]
     private ?User $creator = null;
 
-    #[ORM\OneToMany(mappedBy: 'likedDeals', targetEntity: User::class)]
-    private Collection $usersLikes;
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'likedDeals')]
+    private Collection $likedUsers;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->customGroups = new ArrayCollection();
-        $this->usersLikes = new ArrayCollection();
+        $this->likedUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -276,28 +276,25 @@ class Deal
     /**
      * @return Collection<int, User>
      */
-    public function getUsersLikes(): Collection
+    public function getLikedUsers(): Collection
     {
-        return $this->usersLikes;
+        return $this->likedUsers;
     }
 
-    public function addUsersLike(User $usersLike): self
+    public function addLikedUser(User $likedUser): self
     {
-        if (!$this->usersLikes->contains($usersLike)) {
-            $this->usersLikes->add($usersLike);
-            $usersLike->setLikedDeals($this);
+        if (!$this->likedUsers->contains($likedUser)) {
+            $this->likedUsers->add($likedUser);
+            $likedUser->addLikedDeal($this);
         }
 
         return $this;
     }
 
-    public function removeUsersLike(User $usersLike): self
+    public function removeLikedUser(User $likedUser): self
     {
-        if ($this->usersLikes->removeElement($usersLike)) {
-            // set the owning side to null (unless already changed)
-            if ($usersLike->getLikedDeals() === $this) {
-                $usersLike->setLikedDeals(null);
-            }
+        if ($this->likedUsers->removeElement($likedUser)) {
+            $likedUser->removeLikedDeal($this);
         }
 
         return $this;

@@ -56,6 +56,7 @@ class DealController extends AbstractController
     public function new(Request $request, DealRepository $dealRepository): Response
     {
         $deal = new Deal();
+        $deal->setCreator($this->getUser());
         $form = $this->createForm(DealType::class, $deal);
         $form->handleRequest($request);
 

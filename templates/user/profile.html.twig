@@ -1,11 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+
 
 {% block body %}
-    <div class="container">
-        <div>
+    {% block nav %}
+        {% include 'user/profile_navbar.html.twig' %}
+    {% endblock %}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card animate__animated animate__fadeInUp">
+                    <div class="card-header text-center">
+                        <h4> Statistiques </h4>
+                    </div>
+                    <div class="card-body">
+                        <h5>Posts</h5>
+                        <table>
+                            <tr><td><i class="fa-solid fa-tag mx-2"></i>{{ user.deals|length}} deals</td></tr>
+                            <tr><td><i class="fa-solid fa-comment mx-2"></i>{{ user.comments|length }} commentaires</td></tr>
+                            <tr><td><i class="fa-solid fa-bookmark mx-2"></i>{{ user.dealsLiked|length }} deals likés</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card animate__animated animate__fadeInUp">
+                    <div class="card-header text-center">
+                        <h4> Profil </h4>
+                    </div>
+                    <div class="card-body">
 
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
