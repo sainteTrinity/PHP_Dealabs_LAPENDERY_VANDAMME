@@ -57,10 +57,17 @@ class Deal
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'deals')]
+    private ?User $creator = null;
+
+    #[ORM\OneToMany(mappedBy: 'likedDeals', targetEntity: User::class)]
+    private Collection $usersLikes;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->customGroups = new ArrayCollection();
+        $this->usersLikes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -252,5 +259,47 @@ class Deal
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?User $creator): self
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsersLikes(): Collection
+    {
+        return $this->usersLikes;
+    }
+
+    public function addUsersLike(User $usersLike): self
+    {
+        if (!$this->usersLikes->contains($usersLike)) {
+            $this->usersLikes->add($usersLike);
+            $usersLike->setLikedDeals($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersLike(User $usersLike): self
+    {
+        if ($this->usersLikes->removeElement($usersLike)) {
+            // set the owning side to null (unless already changed)
+            if ($usersLike->getLikedDeals() === $this) {
+                $usersLike->setLikedDeals(null);
+            }
+        }
+
+        return $this;
     }
 }

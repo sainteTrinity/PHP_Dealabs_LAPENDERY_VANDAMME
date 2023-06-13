@@ -45,7 +45,7 @@ class DealController extends AbstractController
     }
 
     #[Route('/{id}', name: 'deal_show', methods: ['GET', 'POST'])]
-    public function show(Request $request, Deal $deal, DealRepository $dealRepository, CommentRepository $commentRepository, Security $security): Response
+    public function show(Request $request, Deal $deal, DealRepository $dealRepository, CommentRepository $commentRepository): Response
     {
         $comment = new Comment();
         $commentForm = $this->createForm(DealCommentType::class, $comment);
@@ -53,7 +53,7 @@ class DealController extends AbstractController
         $commentForm->handleRequest($request);
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-            $comment->setUser($security->getUser());
+            $comment->setUser($this->getUser());
             $comment->setDeal($deal);
             $comment->setDate(new \DateTime());
             $comment->setLikes(0);

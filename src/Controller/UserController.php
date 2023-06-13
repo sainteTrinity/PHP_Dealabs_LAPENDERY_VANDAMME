@@ -48,7 +48,7 @@ class UserController extends AbstractController
 
         if(!$user) {
             $this->addFlash('warning', 'Il faut être connecté pour pouvoir accéder à son profil.');
-            $this->redirectToRoute("/");
+            return $this->redirectToRoute("/");
         }
 
         return $this->render('user/profile.html.twig', [

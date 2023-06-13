@@ -34,9 +34,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = [];
 
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Deal::class)]
+    private Collection $deals;
+
+    #[ORM\ManyToOne(inversedBy: 'usersLikes')]
+    private ?Deal $likedDeals = null;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->deals = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -134,5 +141,47 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return (string) $this->username;
+    }
+
+    /**
+     * @return Collection<int, Deal>
+     */
+    public function getDeals(): Collection
+    {
+        return $this->deals;
+    }
+
+    public function addDeal(Deal $deal): self
+    {
+        if (!$this->deals->contains($deal)) {
+            $this->deals->add($deal);
+            $deal->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeal(Deal $deal): self
+    {
+        if ($this->deals->removeElement($deal)) {
+            // set the owning side to null (unless already changed)
+            if ($deal->getCreator() === $this) {
+                $deal->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLikedDeals(): ?Deal
+    {
+        return $this->likedDeals;
+    }
+
+    public function setLikedDeals(?Deal $likedDeals): self
+    {
+        $this->likedDeals = $likedDeals;
+
+        return $this;
     }
 }
