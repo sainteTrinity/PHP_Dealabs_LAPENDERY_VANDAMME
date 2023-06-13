@@ -1,0 +1,39 @@
+.card {
+    animation: fadeInUp 0.5s;
+}
+
+.note-box {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.note-box--positive {
+    background-color: orange;
+}
+
+.note-box--negative {
+    background-color: red;
+}
+
+.note-box--neutral {
+    background-color: gray;
+}
+
+.note-box--low {
+    background-color: lightblue;
+}
+
+.note-box--very-low {
+    background-color: lightcyan;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.central-section {
+    padding-left: calc(15% - 5px); /* Espacement à droite de la partie centrale */
+    border-right: 1px solid #ccc;
+}

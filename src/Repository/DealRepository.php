@@ -39,6 +39,27 @@ class DealRepository extends ServiceEntityRepository
         }
     }
 
+    public function getAllHotDeal(): array
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.note > :val')
+            ->setParameter('val', 100)
+            ->setMaxResults(50)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function get5HotestDeal(): array
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.note > :val')
+            ->setParameter('val', 100)
+            ->orderBy('d.note', 'ASC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Deal[] Returns an array of Deal objects
 //     */

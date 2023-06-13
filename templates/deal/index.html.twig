@@ -5,79 +5,126 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="{{ asset('css/deal/index.css') }}">
     <style>
-        .card {
-            animation: fadeInUp 0.5s;
+        .full-height {
+            height: 100vh;
         }
-
-        .note-box {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: bold;
+        .central-section {
+            padding-left: calc(15% - 5px);
+            border-right: 1px solid #ccc;
         }
-
-        .note-box--positive {
-            background-color: orange;
-        }
-
-        .note-box--negative {
-            background-color: red;
-        }
-
-        .note-box--neutral {
-            background-color: gray;
-        }
-
-        .note-box--low {
-            background-color: lightblue;
-        }
-
-        .note-box--very-low {
-            background-color: lightcyan;
+        .object-fit-cover {
+            object-fit: cover;
         }
     </style>
 {% endblock %}
 
 {% block body %}
-    <div>
-        <div class="row mt-3">
-            {% for deal in deals %}
-                <div class="col-lg-8 offset-lg-2 mb-4">
-                    <div class="card h-100 animate__animated animate__fadeInUp">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="{{ vich_uploader_asset(deal, 'imageFile') }}" class="card-img" alt="{{ deal.imageName }}">
+    <div class="container-fluid full-height">
+    <div class="row full-height">
+        <div class="col-9 central-section">
+            <!-- Partie centrale de la page (3/4 de la largeur, hauteur maximale) -->
+            <div class="h-100 text-white p-3">
+                {% for deal in deals %}
+                    <div style="margin-top: 15px; margin-bottom: 15px">
+                        <div class="card h-60 animate__animated animate__fadeInUp">
+                            <div class="row g-0">
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <div class="h-100 w-100" style="position: relative;">
+                                        <img src="{{ vich_uploader_asset(deal, 'imageFile') }}" class="card-img h-100 object-fit-cover" alt="{{ deal.imageName }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <button class="btn btn-sm btn-primary rounded-circle mr-2" style="font-weight: bold">
+                                                <i class="fa-solid fa-minus"></i>
+                                            </button>
+                                            {% set noteColor = deal.note > 50 ? 'text-danger' : (deal.note > 20 ? 'text-warning' : (deal.note < 0 ? 'text-info' : (deal.note < 25 ? 'text-primary' : ''))) %}
+                                            <h5 class="card-text {{ noteColor }} font-weight-bold" style="margin-right: 5px">{{ deal.note }}</h5>
+                                            <button class="btn btn-sm btn-danger rounded-circle ml-2" style="font-weight: bold">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </button>
+                                            <a href="{{ path('deal_report', {'id': deal.id}) }}" class="btn btn-sm btn-outline-danger ml-auto" style="font-weight: bold; margin-right: 5px;">
+                                                <i class="fa-solid fa-flag"></i>
+                                            </a>
+
+                                        </div>
+                                        <h3 class="card-title mt-3 font-weight-bold" style="color: black">{{ deal.title }}</h3>
+                                        <p class="card-text text-muted">
+                                            <span class="font-weight-bold">Regular Price:</span> {{ deal.normalPrice }}€
+                                            <span class="font-weight-bold" style="color: black; margin-left: 10px;">{{ deal.price }}€</span>
+                                        </p>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a href="{{ deal.link }}" class="btn btn-primary btn-lg rounded-pill mr-3">
+                                                Voir le Deal
+                                                <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                                            </a>
+                                            <button class="btn btn-outline-secondary btn-lg border-dashed">Copy Promo Code</button>
+                                        </div>
+                                        <p class="card-text mt-3" style="color: black">{{ deal.description }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <div class="d-flex">
-                                        <button class="btn btn-sm btn-primary mr-2" style="font-weight: bold">-</button>
-                                        {% set noteColor = deal.note > 50 ? 'text-danger' : (deal.note > 20 ? 'text-warning' : (deal.note < 0 ? 'text-info' : (deal.note < 25 ? 'text-primary' : ''))) %}
-                                        <h5 class="card-text {{ noteColor }}" style="font-weight: bold">{{ deal.note }}</h5>
-                                        <button class="btn btn-sm btn-danger ml-2" style="font-weight: bold">+</button>
+                            <div class="card-footer">
+                                <a href="{{ path('deal_show', {'id': deal.id}) }}" class="btn btn-primary btn-block">Voir la page du Deal</a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-md-12">
+                        <div class="alert alert-info">No records found.</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-3 container-fluid" style="padding-right: calc(4% - 5px);">
+            <div>
+                <div class="row justify-content-center mt-5">
+                    <div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title text-center">Les plus HOT !</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group mb-4">
+                                    <label for="filter">Filtrer par :</label>
+                                    <select id="filter" class="form-select">
+                                        <option value="all">Tout le temps</option>
+                                        <option value="day">Jour</option>
+                                        <option value="month">Mois</option>
+                                        <option value="year">Année</option>
+                                    </select>
+                                </div>
+
+                                <div id="card-container">
+                                    {% for deal in hotDeals %}
+                                    <div class="card mb-3">
+                                        <div>
+                                            <div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{ deal.title }}</h5>
+                                                    <div class="d-flex mb-2">
+                                                        <div>
+                                                            <span style="color: #B0413E}}; font-weight: bold">{{ deal.note }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <p class="card-text">{{ deal.description }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <h3 class="card-title mt-3 font-weight-bold">{{ deal.title }}</h3>
-                                    <p class="card-text text-danger font-weight-bold">{{ deal.price }}€</p>
-                                    <p class="card-text text-muted">Regular Price: {{ deal.normalPrice }}€</p>
-                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <a href="{{ deal.link }}" class="btn btn-primary btn-lg rounded-pill mr-3">Voir le Deal<i class="fa-solid fa-arrow-up-right-from-square ml-2"></i></a>
-                                        <button class="btn btn-outline-secondary btn-lg border-dashed">Copy Promo Code</button>
-                                    </div>
-                                    <p class="card-text mt-3">{{ deal.description }}</p>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer">
-                            <a href="{{ path('deal_show', {'id': deal.id}) }}" class="btn btn-primary btn-block">Voir la page du Deal</a>
-                        </div>
                     </div>
                 </div>
-            {% else %}
-                <div class="col-md-12">
-                    <div class="alert alert-info">No records found.</div>
-                </div>
-            {% endfor %}
+            </div>
         </div>
     </div>
+
+    <!-- Chargement du script Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 {% endblock %}

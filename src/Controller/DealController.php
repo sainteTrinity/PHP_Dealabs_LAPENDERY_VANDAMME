@@ -13,6 +13,8 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 #[Route('/deal')]
 class DealController extends AbstractController
@@ -22,6 +24,31 @@ class DealController extends AbstractController
     {
         return $this->render('deal/index.html.twig', [
             'deals' => $dealRepository->findAll(),
+            'hotDeals' => $dealRepository->get5HotestDeal()
+        ]);
+    }
+
+    #[Route('/report/{id}', name: 'deal_report')]
+    public function report(Request $request, Deal $deal, MailerInterface $mailer): Response
+    {
+
+        $email = (new Email())
+            ->from($this->getUser()->getEmail())
+            ->to('support@dealabs.com')
+            ->subject('Deal Report')
+            ->text('The user ' . $this->getUser()->getUsername() . ' report the deal ' . $deal->getTitle() . ' with the following id : ' . $deal->getId());
+
+        $mailer->send($email);
+
+        $this->addFlash('success', 'Deal reported successfully');
+        return $this->redirectToRoute('deal_index');
+    }
+
+    #[Route('/hotDeal', name: 'deal_hot', methods: ['GET'])]
+    public function hotDeal(DealRepository $dealRepository): Response
+    {
+        return $this->render('deal/index.html.twig', [
+            'deals' => $dealRepository->getAllHotDeal(),
         ]);
     }
 
