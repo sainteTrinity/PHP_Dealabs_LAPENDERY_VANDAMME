@@ -24,7 +24,8 @@ class DealController extends AbstractController
     {
         return $this->render('deal/index.html.twig', [
             'deals' => $dealRepository->findAll(),
-            'hotDeals' => $dealRepository->get5HotestDeal()
+            'hotDeals' => $dealRepository->get5HotestDeal(),
+            'currentUser' => $this->getUser()
         ]);
     }
 
@@ -70,6 +71,24 @@ class DealController extends AbstractController
             'deal' => $deal,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/{id}/increment', name: 'deal_increment', methods: ['GET', 'POST'])]
+    public function increment(Request $request, Deal $deal, DealRepository $dealRepository): Response
+    {
+        $deal->setNote($deal->getNote() + 1);
+        $deal->addVotedUser($this->getUser());
+        $dealRepository->save($deal, true);
+        return $this->json(['note' => $deal->getNote()]);
+    }
+
+    #[Route('/{id}/decrement', name: 'deal_decrement', methods: ['GET', 'POST'])]
+    public function decrement(Request $request, Deal $deal, DealRepository $dealRepository): Response
+    {
+        $deal->setNote($deal->getNote() - 1);
+        $deal->removeVotedUser($this->getUser());
+        $dealRepository->save($deal, true);
+        return $this->json(['note' => $deal->getNote()]);
     }
 
     #[Route('/{id}', name: 'deal_show', methods: ['GET', 'POST'])]
