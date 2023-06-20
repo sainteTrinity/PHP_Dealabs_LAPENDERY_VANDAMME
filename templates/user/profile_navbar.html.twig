@@ -2,9 +2,9 @@
     <div class="container mt-3">
         <div class="row text-center">
             <div class="col">
-                <a class="btn btn-secondary">Badges</a>
-                <a class="btn btn-secondary">Mes deals</a>
-                <a class="btn btn-secondary">Badges</a>
+                <a class="btn btn-secondary" href="{{ path("app_user_profile") }}">Aperçu</a>
+                <a class="btn btn-secondary" href="#">Deals ({{ user.deals|length }})</a>
+                <a class="btn btn-secondary" href="#">Deals sauvegardés ({{ user.likedDeals|length }})</a>
             </div>
         </div>
     </div>

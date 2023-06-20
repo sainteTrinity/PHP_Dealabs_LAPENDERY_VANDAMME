@@ -80,3 +80,10 @@
 .nav-item {
     margin-right: 10px;
 }
+
+.cr {
+    border-radius: 10px;
+}
+.chr {
+    border-radius: 10px 10px 0 0;
+}

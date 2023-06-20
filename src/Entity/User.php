@@ -40,11 +40,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Deal::class, inversedBy: 'likedUsers')]
     private Collection $likedDeals;
 
+    #[ORM\ManyToMany(targetEntity: Badge::class)]
+    private Collection $Badges;
+
+    #[ORM\ManyToMany(targetEntity: Deal::class, mappedBy: 'votedUsers')]
+    private Collection $votedDeals;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->deals = new ArrayCollection();
         $this->likedDeals = new ArrayCollection();
+        $this->Badges = new ArrayCollection();
+        $this->votedDeals = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -194,6 +202,57 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeLikedDeal(Deal $likedDeal): self
     {
         $this->likedDeals->removeElement($likedDeal);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Badge>
+     */
+    public function getBadges(): Collection
+    {
+        return $this->Badges;
+    }
+
+    public function addBadge(Badge $badge): static
+    {
+        if (!$this->Badges->contains($badge)) {
+            $this->Badges->add($badge);
+        }
+
+        return $this;
+    }
+
+    public function removeBadge(Badge $badge): static
+    {
+        $this->Badges->removeElement($badge);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Deal>
+     */
+    public function getVotedDeals(): Collection
+    {
+        return $this->votedDeals;
+    }
+
+    public function addVotedDeal(Deal $votedDeal): static
+    {
+        if (!$this->votedDeals->contains($votedDeal)) {
+            $this->votedDeals->add($votedDeal);
+            $votedDeal->addVotedUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVotedDeal(Deal $votedDeal): static
+    {
+        if ($this->votedDeals->removeElement($votedDeal)) {
+            $votedDeal->removeVotedUser($this);
+        }
 
         return $this;
     }

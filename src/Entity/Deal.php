@@ -63,11 +63,15 @@ class Deal
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'likedDeals')]
     private Collection $likedUsers;
 
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'votedDeals')]
+    private Collection $votedUsers;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->customGroups = new ArrayCollection();
         $this->likedUsers = new ArrayCollection();
+        $this->votedUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -296,6 +300,30 @@ class Deal
         if ($this->likedUsers->removeElement($likedUser)) {
             $likedUser->removeLikedDeal($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getVotedUsers(): Collection
+    {
+        return $this->votedUsers;
+    }
+
+    public function addVotedUser(User $votedUser): static
+    {
+        if (!$this->votedUsers->contains($votedUser)) {
+            $this->votedUsers->add($votedUser);
+        }
+
+        return $this;
+    }
+
+    public function removeVotedUser(User $votedUser): static
+    {
+        $this->votedUsers->removeElement($votedUser);
 
         return $this;
     }

@@ -9,27 +9,73 @@
     <div class="container mt-3">
         <div class="row">
             <div class="col-md-3">
-                <div class="card animate__animated animate__fadeInUp">
-                    <div class="card-header text-center">
-                        <h4> Statistiques </h4>
+                <div class="card animate__animated animate__fadeInUp cr">
+                    <div class="card-header text-center chr">
+                        <h4><i class="fa-solid fa-chart-simple mx-1"></i> Statistiques </h4>
                     </div>
                     <div class="card-body">
                         <h5>Posts</h5>
                         <table>
                             <tr><td><i class="fa-solid fa-tag mx-2"></i>{{ user.deals|length}} deals</td></tr>
                             <tr><td><i class="fa-solid fa-comment mx-2"></i>{{ user.comments|length }} commentaires</td></tr>
-                            <tr><td><i class="fa-solid fa-bookmark mx-2"></i>{{ user.dealsLiked|length }} deals likés</td></tr>
+                            <tr><td><i class="fa-solid fa-bookmark mx-2"></i>{{ user.likedDeals|length }} deals likés</td></tr>
                         </table>
                     </div>
                 </div>
             </div>
             <div class="col-md-9">
-                <div class="card animate__animated animate__fadeInUp">
-                    <div class="card-header text-center">
-                        <h4> Profil </h4>
+                <div class="card animate__animated animate__fadeInUp cr">
+                    <div class="card-header text-center chr">
+                        <h4><i class="fa-solid fa-star mx-1"></i> Badges </h4>
                     </div>
                     <div class="card-body">
-
+                        {% for badge in user.badges %}
+                            <div class="card animate__animated animate__fadeInUp cr mt-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <i class="{{ badge.icon }} fa-2xl"></i>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <h5>{{ badge.name }}</h5>
+                                            <span>{{ badge.description }}</span>
+                                            {% if badge.name == "Surveillant" %}
+                                                {% set value = user.votedDeals|length %}
+                                            {% elseif badge.name == "Cobaye"%}
+                                                {% set value = user.deals|length %}
+                                            {% else %}
+                                                {% set value = user.comments|length %}
+                                            {% endif %}
+                                            {{ value }}
+                                            <progress id="file" max="{{ badge.goal }}" value="{{ value }}">{{ value }} / {{ badge.goal }} </progress>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% for badge in badges %}
+                            <div class="card animate__animated animate__fadeInUp cr mt-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <i class="{{ badge.icon }} fa-2xl"></i>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <h5>{{ badge.name }}</h5>
+                                            <span>{{ badge.description }}</span>
+                                            {% if badge.name == "Surveillant" %}
+                                                {% set value = user.votedDeals|length %}
+                                            {% elseif badge.name == "Cobaye"%}
+                                                {% set value = user.deals|length %}
+                                            {% else %}
+                                                {% set value = user.comments|length %}
+                                            {% endif %}
+                                            <progress id="file" max="{{ badge.goal }}" value="{{ value }}">{{ value }} / {{ badge.goal }} </progress>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
