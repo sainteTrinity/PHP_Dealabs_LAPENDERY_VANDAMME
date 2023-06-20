@@ -55,22 +55,27 @@
                         {% endfor %}
                         {% for badge in badges %}
                             <div class="card animate__animated animate__fadeInUp cr mt-3">
+                                {% if badge.name == "Surveillant" %}
+                                    {% set value = user.votedDeals|length %}
+                                    {% set percent = value/3%}
+                                {% elseif badge.name == "Cobaye"%}
+                                    {% set value = user.deals|length %}
+                                    {% set percent = value*10 %}
+                                {% else %}
+                                    {% set value = user.comments|length %}
+                                    {% set percent = value %}
+                                {% endif %}
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-1">
-                                            <i class="{{ badge.icon }} fa-2xl"></i>
+                                            <i class="{{ badge.icon }} fa-2xl mt-2"></i>
                                         </div>
                                         <div class="col-md-11">
                                             <h5>{{ badge.name }}</h5>
+                                            <div class="progress mb-1">
+                                                <div class="progress-bar" role="progressbar" style="width: {{ percent }}%" aria-valuenow="{{ value }}" aria-valuemin="0" aria-valuemax="{{ badge.goal }}">{{ value }} / {{ badge.goal }}</div>
+                                            </div>
                                             <span>{{ badge.description }}</span>
-                                            {% if badge.name == "Surveillant" %}
-                                                {% set value = user.votedDeals|length %}
-                                            {% elseif badge.name == "Cobaye"%}
-                                                {% set value = user.deals|length %}
-                                            {% else %}
-                                                {% set value = user.comments|length %}
-                                            {% endif %}
-                                            <progress id="file" max="{{ badge.goal }}" value="{{ value }}">{{ value }} / {{ badge.goal }} </progress>
                                         </div>
                                     </div>
                                 </div>
