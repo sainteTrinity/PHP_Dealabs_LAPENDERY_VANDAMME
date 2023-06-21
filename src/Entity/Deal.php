@@ -312,7 +312,7 @@ class Deal
         return $this->votedUsers;
     }
 
-    public function addVotedUser(User $votedUser): static
+    public function addVotedUser(?User $votedUser): static
     {
         if (!$this->votedUsers->contains($votedUser)) {
             $this->votedUsers->add($votedUser);
@@ -321,7 +321,7 @@ class Deal
         return $this;
     }
 
-    public function removeVotedUser(User $votedUser): static
+    public function removeVotedUser(?User $votedUser): static
     {
         $this->votedUsers->removeElement($votedUser);
 

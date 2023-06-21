@@ -32,7 +32,6 @@ class DealController extends AbstractController
     #[Route('/report/{id}', name: 'deal_report')]
     public function report(Request $request, Deal $deal, MailerInterface $mailer): Response
     {
-
         $email = (new Email())
             ->from($this->getUser()->getEmail())
             ->to('support@dealabs.com')
@@ -40,7 +39,6 @@ class DealController extends AbstractController
             ->text('The user ' . $this->getUser()->getUsername() . ' report the deal ' . $deal->getTitle() . ' with the following id : ' . $deal->getId());
 
         $mailer->send($email);
-
         $this->addFlash('success', 'Deal reported successfully');
         return $this->redirectToRoute('deal_index');
     }
@@ -77,7 +75,7 @@ class DealController extends AbstractController
     public function increment(Request $request, Deal $deal, DealRepository $dealRepository): Response
     {
         $deal->setNote($deal->getNote() + 1);
-        $deal->addVotedUser($this->getUser());
+        $deal->addVotedUser( $this->getUser());
         $dealRepository->save($deal, true);
         return $this->json(['note' => $deal->getNote()]);
     }
