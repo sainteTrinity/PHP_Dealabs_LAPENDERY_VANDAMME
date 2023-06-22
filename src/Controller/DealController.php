@@ -51,6 +51,17 @@ class DealController extends AbstractController
         ]);
     }
 
+    #[Route('/search', name: 'deal_search', methods: ['GET', 'POST'])]
+    public function search(Request $request, DealRepository $dealRepository): Response
+    {
+        $search = $request->query->get('query');
+        return $this->render('deal/index.html.twig', [
+            'deals' => $dealRepository->findBySearch($search),
+            'currentUser' => $this->getUser(),
+            'hotDeals' => $dealRepository->get5HotestDeal()
+        ]);
+    }
+
     #[Route('/new', name: 'deal_new', methods: ['GET', 'POST'])]
     public function new(Request $request, DealRepository $dealRepository): Response
     {

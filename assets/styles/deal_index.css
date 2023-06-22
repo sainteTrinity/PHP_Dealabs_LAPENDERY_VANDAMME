@@ -34,6 +34,5 @@
 }
 
 .central-section {
-    padding-left: calc(15% - 5px); /* Espacement à droite de la partie centrale */
-    border-right: 1px solid #ccc;
+    padding-left: calc(15% - 5px);
 }

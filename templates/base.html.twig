@@ -51,9 +51,9 @@
                 </div>
             </li>
             <li class="nav-item ml-3">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2 rounded-pill search-input" type="search" placeholder="Search"
-                           aria-label="Search">
+                <form id="dealSearchForm" class="form-inline my-2 my-lg-0" action="{{ path("deal_search") }}" method="POST">
+                    <button class="btn my-2 my-sm-0 rounded-pill" type="submit" ><i class="fa-solid fa-search fa-lg mx-1"></i></button>
+                    <input id="dealSearchInput" name="query" class="form-control mr-sm-2 rounded-pill search-input" type="search" placeholder="Search" aria-label="Search">
                 </form>
             </li>
             {% if app.user %}
@@ -86,13 +86,31 @@
     </div>
 </nav>
 
-
 {% block body %}{% endblock %}
 
 <!-- Include Bootstrap and jQuery scripts -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    document.getElementById('dealSearchForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent form submission
+
+        var searchInput = document.getElementById('dealSearchInput').value;
+        var formAction = document.getElementById('dealSearchForm').action;
+
+        // Construct the new action URL with the search input value
+        var newAction = formAction + "?query=" + encodeURIComponent(searchInput);
+
+        // Update the form's action attribute
+        document.getElementById('dealSearchForm').action = newAction;
+
+        // Submit the form
+        document.getElementById('dealSearchForm').submit();
+    });
+</script>
+
 </body>
 
 </html>

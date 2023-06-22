@@ -60,6 +60,15 @@ class DealRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findBySearch(string $search): array
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.title LIKE :val')
+            ->setParameter('val', '%' . $search . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Deal[] Returns an array of Deal objects
 //     */

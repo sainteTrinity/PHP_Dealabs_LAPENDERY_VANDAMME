@@ -20,11 +20,6 @@
             object-fit: cover;
         }
 
-        .custom-border {
-            border: 1px solid #000; /* Couleur et épaisseur de la bordure */
-            border-radius: 5px; /* Rayon des coins de la bordure */
-        }
-    </style>
     </style>
 {% endblock %}
 
@@ -48,16 +43,20 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
                                             <div class="d-flex justify-content-between"
-                                                 style="border: 1px solid #000; padding: 5px; border-radius: 15px;">
+                                                 style="border: 1px solid #000; padding: 5px; border-radius: 25px;">
                                                 {% set isUserLiked = deal.votedUsers.contains(currentUser) %}
-                                                <button id="button1{{ deal.id }}" class="btn btn-sm minus-btn" style="font-weight: bold; color: blue; border: none; margin-right: 2px;" {% if isUserLiked %}disabled{% endif %} data-deal-id="{{ deal.id }}">
+                                                <button id="button1{{ deal.id }}" class="btn btn-sm minus-btn"
+                                                        style="font-weight: bold; color: blue; border: none; margin-right: 2px; {% if isUserLiked or app.user is null %}visibility: hidden;{% endif %}"
+                                                        data-deal-id="{{ deal.id }}">
                                                     <i class="fa-solid fa-minus" style="color: #1683d3;"></i>
                                                 </button>
                                                 {% set noteColor = deal.note > 50 ? 'text-danger' : (deal.note > 20 ? 'text-warning' : (deal.note < 0 ? 'text-info' : (deal.note < 25 ? 'text-primary' : ''))) %}
-                                                <h5 id="note{{ deal.id }}" class="card-text {{ noteColor }} font-weight-bold"
-                                                    style="margin-right: 5px;">{{ deal.note }}</h5>
+                                                <h5 id="note{{ deal.id }}"
+                                                    class="card-text {{ noteColor }} font-weight-bold"
+                                                    style="margin-right: 5px;">{{ deal.note }}°</h5>
                                                 <button id="button2{{ deal.id }}" class="btn btn-sm plus-btn"
-                                                        style="font-weight: bold; color: red; border: none; margin-left: 2px; {% if isUserLiked %}disabled{% endif %}"  {% if isUserLiked %}disabled{% endif %} data-deal-id="{{ deal.id }}">
+                                                        style="font-weight: bold; color: red; border: none; margin-left: 2px; {% if isUserLiked or app.user is null %}visibility: hidden;{% endif %}"
+                                                        data-deal-id="{{ deal.id }}">
                                                     <i class="fa-solid fa-plus" style="color: #e40e0e;"></i>
                                                 </button>
                                             </div>
@@ -103,44 +102,30 @@
             </div>
         </div>
         <div class="col-3 container-fluid" style="padding-right: calc(4% - 5px);">
-            <div>
-                <div class="row justify-content-center mt-5">
-                    <div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title text-center">Les plus HOT !</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group mb-4">
-                                    <label for="filter">Filtrer par :</label>
-                                    <select id="filter" class="form-select">
-                                        <option value="all">Tout le temps</option>
-                                        <option value="day">Jour</option>
-                                        <option value="month">Mois</option>
-                                        <option value="year">Année</option>
-                                    </select>
-                                </div>
-
-                                <div id="card-container">
-                                    {% for deal in hotDeals %}
-                                        <div class="card mb-3">
-                                            <div>
-                                                <div>
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">{{ deal.title }}</h5>
-                                                        <div class="d-flex mb-2">
-                                                            <div>
-                                                                <span style="color: #B0413E}}; font-weight: bold">{{ deal.note }}</span>
-                                                            </div>
-                                                        </div>
-                                                        <p class="card-text">{{ deal.description }}</p>
+            <div class="row justify-content-center mt-5">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title text-center">Les plus HOT !</h5>
+                        </div>
+                        <div id="card-container" class="card-body">
+                            {% for deal in hotDeals %}
+                                <div class="card mb-3 shadow-sm">
+                                    <div class="row g-0">
+                                        <div class="col-md-12">
+                                            <div class="card-body">
+                                                <h5 class="card-title font-weight-bold">{{ deal.title }}</h5>
+                                                <div class="d-flex mb-2">
+                                                    <div>
+                                                        <span class="text-danger font-weight-bold">{{ deal.note }}°</span>
                                                     </div>
                                                 </div>
+                                                <p class="card-text">{{ deal.description }}</p>
                                             </div>
                                         </div>
-                                    {% endfor %}
+                                    </div>
                                 </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -152,8 +137,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.minus-btn').click(function() {
+        $(document).ready(function () {
+            $('.minus-btn').click(function () {
                 var dealId = $(this).data('deal-id');
 
                 fetch('/deal/' + dealId + '/decrement', {
@@ -161,7 +146,7 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ dealId: dealId })
+                    body: JSON.stringify({dealId: dealId})
                 })
                     .then(response => response.json())
                     .then(data => {
@@ -174,7 +159,7 @@
                     });
             });
 
-            $('.plus-btn').click(function() {
+            $('.plus-btn').click(function () {
                 var dealId = $(this).data('deal-id');
                 console.log(dealId);
 
@@ -183,7 +168,7 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ dealId: dealId })
+                    body: JSON.stringify({dealId: dealId})
                 })
                     .then(response => response.json())
                     .then(data => {
