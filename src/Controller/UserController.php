@@ -59,6 +59,40 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/profile/deals', name: 'app_user_profile_deals', methods: ['GET'])]
+    public function deals(): Response
+    {
+        /* @var User $user */
+        $user = $this->getUser();
+
+        if(!$user) {
+            $this->addFlash('warning', 'Il faut être connecté pour pouvoir accéder à son profil.');
+            return $this->redirectToRoute("deal_index");
+        }
+
+        return $this->render('user/user_deals.html.twig', [
+            'deals' => $user->getDeals(),
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/profile/likedDeals', name: 'app_user_profile_likes', methods: ['GET'])]
+    public function likedDeals(): Response
+    {
+        /* @var User $user */
+        $user = $this->getUser();
+
+        if(!$user) {
+            $this->addFlash('warning', 'Il faut être connecté pour pouvoir accéder à son profil.');
+            return $this->redirectToRoute("deal_index");
+        }
+
+        return $this->render('user/liked_deals.html.twig', [
+            'deals' => $user->getLikedDeals(),
+            'user' => $user,
+        ]);
+    }
+
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository): Response
     {

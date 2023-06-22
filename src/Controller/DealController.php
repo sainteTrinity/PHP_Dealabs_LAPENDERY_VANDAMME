@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Deal;
+use App\Entity\User;
 use App\Form\DealCommentType;
 use App\Form\DealType;
 use App\Repository\CommentRepository;
@@ -139,6 +140,23 @@ class DealController extends AbstractController
             'deal' => $deal,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/{id}/like', name: 'deal_like')]
+    public function likeDeal(Request $request, Deal $deal, DealRepository $repo): Response
+    {
+        /* @var User $user */
+        $user = $this->getUser();
+        if($user->getLikedDeals()->contains($deal)){
+            $deal->removeLikedUser($user);
+            $code = 204;
+        } else {
+            $deal->addLikedUser($user);
+            $code = 200;
+        }
+        $repo->save($deal, true);
+
+        return new Response(null,$code);
     }
 
     #[Route('/{id}', name: 'deal_delete', methods: ['POST'])]
