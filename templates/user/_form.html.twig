@@ -1,19 +1,11 @@
 {{ form_start(form) }}
 <div class="form-group">
-    <label for="title">Title</label>
-    {{ form_widget(form.title, {'attr': {'class': 'form-control', 'id': 'title'}}) }}
+    <label for="username">Pseudo</label>
+    {{ form_widget(form.username, {'attr': {'class': 'form-control', 'id': 'username'}}) }}
 </div>
 <div class="form-group">
-    <label for="description">Description</label>
-    {{ form_widget(form.description, {'attr': {'class': 'form-control', 'id': 'description'}}) }}
-</div>
-<div class="form-group">
-    <label for="price">Price</label>
-    {{ form_widget(form.price, {'attr': {'class': 'form-control', 'id': 'price'}}) }}
-</div>
-<div class="form-group">
-    <label for="image">Image</label>
-    {{ form_widget(form.image, {'attr': {'class': 'form-control', 'id': 'image'}}) }}
+    <label for="email">Email</label>
+    {{ form_widget(form.email, {'attr': {'class': 'form-control', 'id': 'email'}}) }}
 </div>
 <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
