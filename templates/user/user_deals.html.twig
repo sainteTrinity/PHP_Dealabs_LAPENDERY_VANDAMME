@@ -90,13 +90,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer text-right">
-                                <a href="{{ path('deal_show', {'id': deal.id}) }}" class="btn btn-primary">
-                                    Voir les details du deal
-                                </a>
-                                <button class="btn btn-outline-secondary border-dashed">
-                                    Copier le code promo
-                                </button>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <a href="{{ path('deal_edit', {'id': deal.id}) }}" class="btn btn-primary">
+                                            Modifier le deal
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <a href="{{ path('deal_show', {'id': deal.id}) }}" class="btn btn-primary">
+                                            Voir les details du deal
+                                        </a>
+                                        <button class="btn btn-outline-secondary border-dashed">
+                                            Copier le code promo
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

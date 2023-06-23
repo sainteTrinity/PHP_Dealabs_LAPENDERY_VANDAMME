@@ -32,6 +32,9 @@
 <div class="form-group">
     {{ form_label(form.imageFile, 'Image') }}
     {{ form_widget(form.imageFile, {'attr': {'class': 'form-control'}}) }}
+    {% if form.vars.value.imageName %}
+        <img src="{{ vich_uploader_asset(form.vars.value) }}" alt="image" class="img-fluid" >
+    {% endif %}
 </div>
 <button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

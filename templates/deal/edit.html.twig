@@ -5,12 +5,20 @@
 {% block body %}
 
     <div class="container">
-        <h1>Edit Deal</h1>
-        {{ include('deal/_form.html.twig', {'button_label': 'Modifier'}) }}
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card animate__animated animate__fadeInUp mt-4">
+                    <div class="card-header">
+                        <h3 class="text-center">Modification d'un deal</h3>
+                    </div>
+                    <div class="card-body">
+                        {{ include('deal/_form.html.twig') }}
+                    </div>
+                </div>
 
-        <a href="{{ path('deal_index') }}">back to list</a>
-
-        {{ include('deal/_delete_form.html.twig') }}
+                <a href="{{ path('app_user_profile_deals') }}" class="btn btn-secondary mt-3 animate__animated animate__fadeInUp">Retour aux deals</a>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

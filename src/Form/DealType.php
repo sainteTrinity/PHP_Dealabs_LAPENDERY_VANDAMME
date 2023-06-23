@@ -27,6 +27,9 @@ class DealType extends AbstractType
             ->add('link', TextType::class)
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
+                'delete_label' => 'Supprimer l\'image',
+                'download_label' => 'Télécharger l\'image',
+                'image_uri' => false,
             ])
         ;
     }
