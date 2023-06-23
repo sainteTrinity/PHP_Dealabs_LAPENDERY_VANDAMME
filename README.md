@@ -16,17 +16,24 @@
 - Docker
 - Docker-compose
 - Composer
+- Npm
 
 ## Install
 
 ```sh
 composer install
+npm install
 ```
 
+## JS loading
+```sh
+npm run build
+```
 ## Usage
 
 ```sh
-docker-compose up -d
+make start_dev
+(docker compose up -d)
 ```
 
 ## Author
