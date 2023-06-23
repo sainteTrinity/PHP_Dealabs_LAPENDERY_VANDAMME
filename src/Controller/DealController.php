@@ -44,11 +44,13 @@ class DealController extends AbstractController
         return $this->redirectToRoute('deal_index');
     }
 
-    #[Route('/hotDeal', name: 'deal_hot', methods: ['GET'])]
+    #[Route('/hot', name: 'deal_hot', methods: ['GET'])]
     public function hotDeal(DealRepository $dealRepository): Response
     {
         return $this->render('deal/index.html.twig', [
             'deals' => $dealRepository->getAllHotDeal(),
+            'hotDeals' => $dealRepository->get5HotestDeal(),
+            'currentUser' => $this->getUser()
         ]);
     }
 
