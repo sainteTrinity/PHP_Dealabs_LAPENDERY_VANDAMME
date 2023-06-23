@@ -40,7 +40,7 @@ class PromoCodeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_promo_code_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'promo_code_show', methods: ['GET'])]
     public function show(PromoCode $promoCode): Response
     {
         return $this->render('promo_code/show.html.twig', [

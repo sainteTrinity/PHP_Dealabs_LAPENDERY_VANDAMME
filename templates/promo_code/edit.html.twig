@@ -1,13 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit PromoCode{% endblock %}
+{% block title %}Modifier un code promo{% endblock %}
 
 {% block body %}
-    <h1>Edit PromoCode</h1>
-
-    {{ include('promo_code/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('promo_code_index') }}">back to list</a>
-
-    {{ include('promo_code/_delete_form.html.twig') }}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card animate__animated animate__fadeInUp mt-4">
+                    <div class="card-header">
+                        <h3 class="text-center">Modification d'un code promo</h3>
+                    </div>
+                    <div class="card-body">
+                        {{ include('promo_code/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
