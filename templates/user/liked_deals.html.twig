@@ -24,8 +24,8 @@
                     <h3 class="">Deals sauvegardés</h3>
                 </div>
                 {% for deal in deals %}
-                    <div style="margin-top: 10px; margin-bottom: 15px" class="px-4">
-                        <div class="card h-60 animate__animated animate__fadeInUp">
+                    <div style="margin-top: 15px; margin-bottom: 15px">
+                        <div class="card h-60 animate__animated animate__fadeInUp mx-3">
                             <div class="row g-0">
                                 <div class="col-md-4 d-flex align-items-center">
                                     <div class="h-100 w-100" style="position: relative;">
@@ -39,14 +39,18 @@
                                             <div class="d-flex justify-content-between"
                                                  style="border: 1px solid #000; padding: 5px; border-radius: 15px;">
                                                 {% set isUserVoted = deal.votedUsers.contains(user) %}
-                                                <button id="button1{{ deal.id }}" class="btn btn-sm minus-btn" style="font-weight: bold; color: blue; border: none; margin-right: 2px;" {% if isUserVoted %}disabled{% endif %} data-deal-id="{{ deal.id }}">
+                                                <button id="button1{{ deal.id }}" class="btn btn-sm minus-btn"
+                                                        style="font-weight: bold; color: blue; border: none; margin-right: 2px; {% if isUserVoted or app.user is null %}visibility: hidden;{% endif %}"
+                                                        data-deal-id="{{ deal.id }}">
                                                     <i class="fa-solid fa-minus" style="color: #1683d3;"></i>
                                                 </button>
                                                 {% set noteColor = deal.note > 50 ? 'text-danger' : (deal.note > 20 ? 'text-warning' : (deal.note < 0 ? 'text-info' : (deal.note < 25 ? 'text-primary' : ''))) %}
-                                                <h5 id="note{{ deal.id }}" class="card-text {{ noteColor }} font-weight-bold"
-                                                    style="margin-right: 5px;">{{ deal.note }}</h5>
+                                                <h5 id="note{{ deal.id }}"
+                                                    class="card-text {{ noteColor }} font-weight-bold"
+                                                    style="margin-right: 5px;">{{ deal.note }}°</h5>
                                                 <button id="button2{{ deal.id }}" class="btn btn-sm plus-btn"
-                                                        style="font-weight: bold; color: red; border: none; margin-left: 2px; {% if isUserVoted %}disabled{% endif %}"  {% if isUserVoted %}disabled{% endif %} data-deal-id="{{ deal.id }}">
+                                                        style="font-weight: bold; color: red; border: none; margin-left: 2px; {% if isUserVoted or app.user is null %}visibility: hidden;{% endif %}"
+                                                        data-deal-id="{{ deal.id }}">
                                                     <i class="fa-solid fa-plus" style="color: #e40e0e;"></i>
                                                 </button>
                                             </div>
@@ -70,26 +74,27 @@
                                         <h3 class="card-title mt-3 font-weight-bold"
                                             style="color: black">{{ deal.title }}</h3>
                                         <p class="card-text text-muted">
-                                            <span class="font-weight-bold">Regular Price:</span> {{ deal.normalPrice }}€
+                                            <span class="font-weight-bold">Regular Price:</span> <s>{{ deal.normalPrice }}€</s>
                                             <span class="font-weight-bold"
                                                   style="color: black; margin-left: 10px;">{{ deal.price }}€</span>
                                         </p>
                                         <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <a href="{{ deal.link }}" class="btn btn-primary btn-lg rounded-pill mr-3">
-                                                Voir le Deal
+                                            <a href="{{ deal.link }}" class="btn btn-primary rounded-pill mr-3">
+                                                Aller au Deal
                                                 <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
                                             </a>
-                                            <button class="btn btn-outline-secondary btn-lg border-dashed">Copy Promo
-                                                Code
-                                            </button>
                                         </div>
                                         <p class="card-text mt-3" style="color: black">{{ deal.description }}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer">
-                                <a href="{{ path('deal_show', {'id': deal.id}) }}" class="btn btn-primary btn-block">Voir
-                                    la page du Deal</a>
+                            <div class="card-footer text-right">
+                                <a href="{{ path('deal_show', {'id': deal.id}) }}" class="btn btn-primary">
+                                    Voir les details du deal
+                                </a>
+                                <button class="btn btn-outline-secondary border-dashed">
+                                    Copier le code promo
+                                </button>
                             </div>
                         </div>
                     </div>

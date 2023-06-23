@@ -1,44 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}PromoCode index{% endblock %}
+{% block title %}Deal index{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="{{ asset('css/deal/index.css') }}">
+    <style>
+        .full-height {
+            height: 100vh;
+        }
+
+        .object-fit-cover {
+            object-fit: cover;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    {% block nav %}
-        {% include 'deal/deal_navbar.html.twig' %}
-    {% endblock %}
-    <h1>PromoCode index</h1>
+    <div class="container-fluid full-height">
+    <div class="row full-height">
+        <div class="col-9" style="padding-left: calc(15% - 5px)">
+            <div class="h-100 text-white p-3">
+                {% for promo_code in promo_codes %}
+                    <div style="margin-top: 15px; margin-bottom: 15px">
+                        <div class="card h-60 animate__animated animate__fadeInUp">
+                            <div class="row g-0">
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <div class="h-100 w-100" style="position: relative;">
+                                        <img src="{{ vich_uploader_asset(promo_code, 'imageFile') }}"
+                                             class="card-img h-100 object-fit-cover" alt="{{ promo_code.imageName }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h3 class="card-title mt-3 font-weight-bold"
+                                            style="color: black">{{ promo_code.Title }}</h3>
+                                        <h4 class="text-secondary">Code : {{ promo_code.code }}</h4>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <a href="{{ promo_code.link }}" class="btn btn-primary rounded-pill mr-3">
+                                                Aller au code promo
+                                                <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                                            </a>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Link</th>
-                <th>Code</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for promo_code in promo_codes %}
-            <tr>
-                <td>{{ promo_code.id }}</td>
-                <td>{{ promo_code.link }}</td>
-                <td>{{ promo_code.code }}</td>
-                <td>{{ promo_code.Title }}</td>
-                <td>{{ promo_code.Description }}</td>
-                <td>
-                    <a href="{{ path('promo_code_show', {'id': promo_code.id}) }}">show</a>
-                    <a href="{{ path('promo_code_edit', {'id': promo_code.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                                        </div>
+                                        <p class="card-text mt-3" style="color: black">{{ promo_code.Description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <a href="{{ path('deal_show', {'id': promo_code.id}) }}" class="btn btn-primary">
+                                    Voir les details du code promo</a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-md-12">
+                        <div class="alert alert-info">Aucun code promo</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ path('promo_code_new') }}">Create new</a>
+    <!-- Chargement du script Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    </script>
 {% endblock %}

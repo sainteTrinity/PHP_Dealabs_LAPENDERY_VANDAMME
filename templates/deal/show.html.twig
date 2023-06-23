@@ -12,17 +12,15 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <div class="d-flex">
-                            <button class="btn btn-sm btn-primary mr-2" style="font-weight: bold">-</button>
                             {% set noteColor = deal.note > 50 ? 'text-danger' : (deal.note > 20 ? 'text-warning' : (deal.note < 0 ? 'text-info' : (deal.note < 25 ? 'text-primary' : ''))) %}
-                            <h5 class="card-text {{ noteColor }}" style="font-weight: bold">{{ deal.note }}</h5>
-                            <button class="btn btn-sm btn-danger ml-2" style="font-weight: bold">+</button>
+                            <h5 class="card-text {{ noteColor }}" style="font-weight: bold">{{ deal.note }}°</h5>
                         </div>
                         <h3 class="card-title mt-3 font-weight-bold">{{ deal.title }}</h3>
                         <p class="card-text text-danger font-weight-bold">{{ deal.price }}€</p>
                         <p class="card-text text-muted">Regular Price: {{ deal.normalPrice }}€</p>
                         <div class="d-flex justify-content-between align-items-center mt-3">
-                            <a href="{{ deal.link }}" class="btn btn-primary btn-lg rounded-pill mr-3">Voir le Deal<i class="fa-solid fa-arrow-up-right-from-square ml-2"></i></a>
-                            <button class="btn btn-outline-secondary btn-lg border-dashed">Copy Promo Code</button>
+                            <a href="{{ deal.link }}" class="btn btn-primary btn rounded-pill mr-3">Voir le Deal<i class="fa-solid fa-arrow-up-right-from-square ml-2"></i></a>
+                            <button class="btn btn-outline-secondary btn border-dashed">Copy Promo Code</button>
                         </div>
                         <p class="card-text mt-3">{{ deal.description }}</p>
                     </div>

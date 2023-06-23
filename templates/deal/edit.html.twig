@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Deal{% endblock %}
+{% block title %}Modifier mon deal{% endblock %}
 
 {% block body %}
 
     <div class="container">
         <h1>Edit Deal</h1>
-        {{ include('deal/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('deal/_form.html.twig', {'button_label': 'Modifier'}) }}
 
         <a href="{{ path('deal_index') }}">back to list</a>
 

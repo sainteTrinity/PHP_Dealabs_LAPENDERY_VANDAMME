@@ -87,27 +87,28 @@
                                                   style="color: black; margin-left: 10px;">{{ deal.price }}€</span>
                                         </p>
                                         <div class="d-flex justify-content-between align-items-center mt-3">
-                                            <a href="{{ deal.link }}" class="btn btn-primary btn-lg rounded-pill mr-3">
-                                                Voir le Deal
+                                            <a href="{{ deal.link }}" class="btn btn-primary rounded-pill mr-3">
+                                                Aller au Deal
                                                 <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
                                             </a>
-                                            <button class="btn btn-outline-secondary btn-lg border-dashed">Copy Promo
-                                                Code
-                                            </button>
                                         </div>
                                         <p class="card-text mt-3" style="color: black">{{ deal.description }}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer">
-                                <a href="{{ path('deal_show', {'id': deal.id}) }}" class="btn btn-primary btn-block">Voir
-                                    la page du Deal</a>
+                            <div class="card-footer text-right">
+                                <a href="{{ path('deal_show', {'id': deal.id}) }}" class="btn btn-primary">
+                                    Voir les details du deal
+                                </a>
+                                <button class="btn btn-outline-secondary border-dashed">
+                                    Copier le code promo
+                                </button>
                             </div>
                         </div>
                     </div>
                 {% else %}
                     <div class="col-md-12">
-                        <div class="alert alert-info">No records found.</div>
+                        <div class="alert alert-info">Aucun deal</div>
                     </div>
                 {% endfor %}
             </div>

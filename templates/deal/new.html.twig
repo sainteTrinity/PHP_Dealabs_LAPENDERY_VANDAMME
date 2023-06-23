@@ -27,15 +27,23 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h1 class="mb-4 animate__animated animate__fadeInUp">Creation d'un nouveau deal</h1>
-
-                <div class="card animate__animated animate__fadeInUp">
+                <div class="card animate__animated animate__fadeInUp mt-4">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h3 class="text-center">Poster un nouveau deal</h3>
+                            </div>
+                            <div class="col-md-5">
+                                <a class="btn bg-primary text-white" href="{{ path('promo_code_new') }}">Ou poster un code promo</a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
                         {{ include('deal/_form.html.twig') }}
                     </div>
                 </div>
 
-                <a href="{{ path('deal_index') }}" class="btn btn-secondary mt-3 animate__animated animate__fadeInUp">Back to list</a>
+                <a href="{{ path('deal_index') }}" class="btn btn-secondary mt-3 animate__animated animate__fadeInUp">Retour aux deals</a>
             </div>
         </div>
     </div>

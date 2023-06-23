@@ -11,5 +11,11 @@ vich_uploader:
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
 
             inject_on_load: false
-            delete_on_update: true
+            delete_on_remove: true
+        promo_code_image_file:
+            uri_prefix: /images/promoCodes
+            upload_destination: '%kernel.project_dir%/public/images/promoCodes'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+            inject_on_load: false
             delete_on_remove: true
